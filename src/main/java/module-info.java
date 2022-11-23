@@ -5,4 +5,6 @@ module com.ca2 {
 
     opens com.ca2 to javafx.fxml;
     exports com.ca2;
+    exports DataStructures;
+    opens DataStructures to javafx.fxml;
 }
