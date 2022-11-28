@@ -1,10 +1,11 @@
 module com.ca2 {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.xml;
 
 
     opens com.ca2 to javafx.fxml;
     exports com.ca2;
-    exports DataStructures;
-    opens DataStructures to javafx.fxml;
+    exports com.ca2.ADT;
+    opens com.ca2.ADT to javafx.fxml;
 }

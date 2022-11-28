@@ -1,9 +1,9 @@
-package DataStructures;
+package com.ca2.ADT;
 
 import java.io.Serializable;
 import java.util.Iterator;
 
-public class Lista<T> implements Iterable<T> , Serializable {
+public class LinkedList<T> implements Iterable<T> , Serializable {
     private T value;
 
 
@@ -46,17 +46,17 @@ public class Lista<T> implements Iterable<T> , Serializable {
     protected Node<T> first;
     protected Node<T> last;
 
-    public Lista() {
+    public LinkedList() {
         totalelem = 0;
         first = null;
         last = null;
     }
 
-    public Lista(Lista<T> other) {
+    public LinkedList(LinkedList<T> other) {
         Copia(other);
     }
 
-    public void Copia(Lista<T> other) {
+    public void Copia(LinkedList<T> other) {
 
     }
 
