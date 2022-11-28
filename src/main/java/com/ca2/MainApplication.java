@@ -12,11 +12,22 @@ import java.io.IOException;
 import java.net.URL;
 
 public class MainApplication extends Application {
+
+
+    Controller controller;
+
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
+        this.controller = fxmlLoader.getController();
+
+
+        this.controller.setStage(stage);
+
+
+        stage.setTitle("Bakery Application");
         stage.setScene(scene);
         stage.show();
     }
@@ -49,5 +60,7 @@ public class MainApplication extends Application {
         assert path != null;
         DataManager.load(path.getPath(), recipes);
         System.out.println("Hello");
+
+        launch();
     }
 }

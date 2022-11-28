@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<Data>
+    <Ingredients>
+        <Ingredient>
+            <Name>Eggs</Name>
+            <Desc>Some desc</Desc>
+            <Cals>100</Cals>
+        </Ingredient>
+        <Ingredient>
+            <Name>Flour</Name>
+            <Desc>Some desc</Desc>
+            <Cals>100</Cals>
+        </Ingredient>
+        <Ingredient>
+            <Name>Sugar</Name>
+            <Desc>Some desc</Desc>
+            <Cals>100</Cals>
+        </Ingredient>
+        <Ingredient>
+            <Name>Chocolate</Name>
+            <Desc>Some desc</Desc>
+            <Cals>100</Cals>
+        </Ingredient>
+        <Ingredient>
+            <Name>Nuts</Name>
+            <Desc>Some desc</Desc>
+            <Cals>100</Cals>
+        </Ingredient>
+    </Ingredients>
+    <BakedGoods>
+        <BakedGood>
+            <Name>Cake</Name>
+            <Origin>Spain</Origin>
+            <Desc>some desc</Desc>
+            <url>some url</url>
+            <IngredientsList>
+                <Ingredient>
+                    <Name>Eggs</Name>
+                    <Amount>5</Amount>
+                </Ingredient>
+                <Ingredient>
+                    <Name>Flour</Name>
+                    <Amount>400</Amount>
+                </Ingredient>
+                <Ingredient>
+                    <Name>Sugar</Name>
+                    <Amount>300</Amount>
+                </Ingredient>
+            </IngredientsList>
+        </BakedGood>
+        <BakedGood>
+            <Name>Bread</Name>
+            <Origin>France</Origin>
+            <Desc>some desc</Desc>
+            <url>some url</url>
+            <IngredientsList>
+                <Ingredient>
+                    <Name>Eggs</Name>
+                    <Amount>3</Amount>
+                </Ingredient>
+                <Ingredient>
+                    <Name>Flour</Name>
+                    <Amount>150</Amount>
+                </Ingredient>
+                <Ingredient>
+                    <Name>Sugar</Name>
+                    <Amount>100</Amount>
+                </Ingredient>
+            </IngredientsList>
+        </BakedGood>
+        <BakedGood>
+            <Name>Biscuit</Name>
+            <Origin>UK</Origin>
+            <Desc>some desc</Desc>
+            <url>some url</url>
+            <IngredientsList>
+                <Ingredient>
+                    <Name>Eggs</Name>
+                    <Amount>4</Amount>
+                </Ingredient>
+                <Ingredient>
+                    <Name>Flour</Name>
+                    <Amount>100</Amount>
+                </Ingredient>
+                <Ingredient>
+                    <Name>Sugar</Name>
+                    <Amount>200</Amount>
+                </Ingredient>
+            </IngredientsList>
+        </BakedGood>
+        <BakedGood>
+            <Name>Pie</Name>
+            <Origin>US</Origin>
+            <Desc>some desc</Desc>
+            <url>some url</url>
+            <IngredientsList>
+                <Ingredient>
+                    <Name>Eggs</Name>
+                    <Amount>2</Amount>
+                </Ingredient>
+                <Ingredient>
+                    <Name>Flour</Name>
+                    <Amount>200</Amount>
+                </Ingredient>
+                <Ingredient>
+                    <Name>Sugar</Name>
+                    <Amount>400</Amount>
+                </Ingredient>
+            </IngredientsList>
+        </BakedGood>
+    </BakedGoods>
+</Data>
