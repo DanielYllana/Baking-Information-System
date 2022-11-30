@@ -10,7 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class BakedGood {
+public class BakedGood implements Comparable<BakedGood>{
 
     private String name;
     private String origin;
@@ -83,4 +83,11 @@ public class BakedGood {
     }
 
     public String getName() { return this.name; }
+
+    @Override
+    public int compareTo(BakedGood o)// compara el objecto que usa el metodo con el que le pasas
+    {//los baked goods van en orden alfabetico por su nombre
+    //returns negative if this < < o , 0 for this==o , positive this > o
+        return name.toLowerCase().compareTo(o.name.toLowerCase());
+    }
 }

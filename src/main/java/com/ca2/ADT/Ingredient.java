@@ -6,7 +6,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
-public class Ingredient {
+public class Ingredient  implements Comparable <Ingredient>{
 
     private String name;
     private String desc;
@@ -59,4 +59,11 @@ public class Ingredient {
     public String getDesc() { return this.desc; }
 
     public Double getCals() { return this.cals; }
+
+    @Override
+    public int compareTo(Ingredient o) {
+        //ordered acordign to calories
+        //returns negative if this < < o , 0 for this==o , positive this > o
+        return cals.compareTo(o.cals);
+    }
 }

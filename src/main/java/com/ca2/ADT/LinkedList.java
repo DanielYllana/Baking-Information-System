@@ -3,13 +3,18 @@ package com.ca2.ADT;
 import java.io.Serializable;
 import java.util.Iterator;
 
-public class LinkedList<T> implements Iterable<T> , Serializable {
-    private T value;
+public class LinkedList<T> implements Iterable<T> , Serializable,Comparable<T> {
+
 
 
     @Override
     public Iterator<T> iterator() {
         return new Iterador<T>(first);
+    }
+
+    @Override
+    public int compareTo(T o) {
+        return 0;
     }
 
     protected class Iterador<T> implements Iterator<T> {
@@ -28,7 +33,7 @@ public class LinkedList<T> implements Iterable<T> , Serializable {
             return temp.element;
         }
     }
-    protected class Node<T> implements  Serializable {
+    protected   class Node<T> implements  Serializable , Comparable<T>{
         T element;
         Node next;
 
@@ -40,10 +45,15 @@ public class LinkedList<T> implements Iterable<T> , Serializable {
             element = el;
             next = ne;
         }
+
+        @Override
+        public int compareTo(T o) {
+            return 0 ;
+        }
     }
 
     protected int totalelem = 0;
-    protected Node<T> first;
+    protected Node<T> first = null;
     protected Node<T> last;
 
     public LinkedList() {
@@ -187,5 +197,68 @@ public class LinkedList<T> implements Iterable<T> , Serializable {
 
         }
 
+    }
+    public <T extends Comparable<T>> void Sortedinsert  ( T elem  )// de menor a mayor
+    {
+        int i = 0;
+        boolean sorted = false;
+        Node<T> actual =  (Node<T> ) first;
+        Node<T> previous = null;
+        while ( i < totalelem && !sorted )
+        {
+            if(actual.element.compareTo(elem)>0)
+            {
+                //insert
+                Node<T> novo = new Node<T> (elem , null);
+                Node<T> aux = new Node<>(elem, novo);
+                    if(previous==null)
+                    {
+                        this.first = aux.next  ;//es que el casting no va
+
+                        novo.next= actual;
+                    }
+                    else {
+                        previous.next= novo;
+                        novo.next = actual;
+                    }
+                ++totalelem;
+                sorted= true;
+            }
+            else
+                previous= actual;
+                actual= actual.next;
+        }
+
+    }
+    public <T extends Comparable<T>> T Get (int i)
+    {
+        T elem = null;
+        Node<T> a = (Node<T>)first;
+        for (int n =0; n<i; i++)
+        {
+            a=a.next;
+        }
+        return a.element;
+    }
+    public <T extends Comparable<T>>T BinarySearch (T elem)
+    {
+        boolean found = false;
+        int mid = totalelem/2;
+        int hihg = totalelem-1;
+        int low = 0;
+        T element = (T) elem;
+        T actual;
+        while (!found&&low<=hihg)
+        {   mid = (low + hihg)/2;
+            actual = Get(mid);
+            if (actual.compareTo((element))==0)
+            {return actual;}
+            if (actual.compareTo(element)>0)
+            {hihg= mid-1;}
+            else low = mid+1;
+
+
+        }
+        return null;
     }
 }
