@@ -1,15 +1,12 @@
 package com.ca2.ADT;
 
-import com.ca2.ShowGoodsController;
+import com.ca2.Controllers.ShowGoodsController;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 
 public class RecipesManager {
 
@@ -128,7 +125,21 @@ public class RecipesManager {
         }
     }
 
-    public void addToGrid(GridPane grid, ShowGoodsController controller) {
+    public void addIngredientsToGrid(GridPane grid, ShowGoodsController controller) {
+        HashTable<String, Ingredient>.Iterator<String, Ingredient> iter = this.ingredientTable.begin();
+
+        GridPosition position = new GridPosition(0, 0, 3);
+        while(!iter.equals(this.ingredientTable.end())) {
+
+            VBox box = iter.value().createTile(controller);
+            grid.add(box, position.getColumn(), position.getRow());
+
+            iter.next();
+            position.next();
+        }
+    }
+
+    public void addGoodsToGrid(GridPane grid, ShowGoodsController controller) {
         HashTable<String, BakedGood>.Iterator<String, BakedGood> iter = this.bakedGoodsTable.begin();
 
         GridPosition position = new GridPosition(0, 0, 3);
@@ -142,4 +153,16 @@ public class RecipesManager {
         }
     }
 
+    public void delete(BakedGood good) {
+        this.bakedGoodsTable.remove(good.getName());
+        this.recipesTable.remove(good.getName());
+    }
+
+    public void addBakedGood(BakedGood bg) {
+        this.bakedGoodsTable.insert(bg.getName(), bg);
+    }
+
+    public void addIngredient(Ingredient ing) {
+        this.ingredientTable.insert(ing.getName(), ing);
+    }
 }

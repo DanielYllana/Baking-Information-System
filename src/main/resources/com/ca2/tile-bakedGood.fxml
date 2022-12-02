@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#tileClicked" prefHeight="300.0" prefWidth="200.0" spacing="10.0" stylesheets="@main-stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ca2.Controllers.TileController">
+    <children>
+        <ImageView fx:id="thumb" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="label1" text="Name" />
+        <Label fx:id="label2" text="Description" />
+        <Label fx:id="label3" text="Origin" />
+        <Label fx:id="label4" text="More info" />
+    </children>
+    <padding>
+        <Insets left="20.0" top="20.0" />
+    </padding>
+    <styleClass>
+        <String fx:value="light-gray" />
+        <String fx:value="round-corners" />
+    </styleClass>
+</VBox>

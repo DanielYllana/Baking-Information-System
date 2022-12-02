@@ -51,6 +51,10 @@ public class HashTable <C, V> {
         this._size *= 2;
         this._v = new ArrayList<>();
 
+        for (int i = 0; i < this._size; i++) {
+            this._v.add(null);
+        }
+
         for (int i = 0; i < sizePrev; i++) {
             HashNode<C, V> node = vPrev.get(i);
 
@@ -58,7 +62,9 @@ public class HashTable <C, V> {
                 HashNode<C, V> aux = node;
                 node = node._next;
                 int ind = this.hashCode(aux._key) % this._size;
+
                 aux._next = this._v.get(ind);
+
                 this._v.set(ind, aux);
             }
         }

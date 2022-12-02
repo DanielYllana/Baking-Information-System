@@ -1,11 +1,10 @@
 package com.ca2.ADT;
 
 import com.ca2.MainApplication;
-import com.ca2.ShowGoodsController;
-import com.ca2.TileController;
+import com.ca2.Controllers.ShowGoodsController;
+import com.ca2.Controllers.TileController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -33,7 +32,7 @@ public class BakedGood implements Comparable<BakedGood>{
         this.desc = _desc;
         this.relativeURL = path;
 
-        this.url = System.getProperty("user.dir") + this.relativeURL;
+        this.url = this.relativeURL;
 
         try {
             InputStream imageStream = new FileInputStream(this.url);

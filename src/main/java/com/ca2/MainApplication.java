@@ -1,15 +1,13 @@
 package com.ca2;
 
 
-import com.ca2.ADT.HashTable;
-import com.ca2.ADT.RecipesManager;
+import com.ca2.Controllers.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class MainApplication extends Application {
 
@@ -34,6 +32,7 @@ public class MainApplication extends Application {
     public static void main(String[] args) {
         //launch();
 
+        /*
         HashTable<Integer, String> table = new HashTable<Integer, String>();
         table.insert(100, "one hundred");
         table.insert(200, "two hundred");
@@ -42,7 +41,7 @@ public class MainApplication extends Application {
         table.insert(500, "five hundred");
         table.insert(3, "thrree");
         table.insert(600, "six hundred");
-
+        */
         // Test 1 - HashTable
         //System.out.println(table.get(300));
         //table.remove(300);
