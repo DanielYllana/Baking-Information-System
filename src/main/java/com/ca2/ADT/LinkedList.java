@@ -3,7 +3,7 @@ package com.ca2.ADT;
 import java.io.Serializable;
 import java.util.Iterator;
 
-public class LinkedList<T> implements Iterable<T> , Serializable,Comparable<T> {
+public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> {
 
 
 

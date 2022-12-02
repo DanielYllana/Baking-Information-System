@@ -1,6 +1,12 @@
 package com.ca2.ADT;
 
+import com.ca2.MainApplication;
+import com.ca2.ShowGoodsController;
+import com.ca2.TileController;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -8,6 +14,7 @@ import org.w3c.dom.Text;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class BakedGood implements Comparable<BakedGood>{
@@ -90,4 +97,28 @@ public class BakedGood implements Comparable<BakedGood>{
     //returns negative if this < < o , 0 for this==o , positive this > o
         return name.toLowerCase().compareTo(o.name.toLowerCase());
     }
+
+
+
+    public VBox createTile(ShowGoodsController controller) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(MainApplication.class.getResource("tile-bakedGood.fxml"));
+
+            VBox box = fxmlLoader.load();
+            TileController tileController = fxmlLoader.getController();
+            tileController.setData(this, controller);
+
+            return box;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Image getImage() { return this.image; }
+
+    public String getOrigin() { return this.origin; }
+
+    public String getDesc() { return this.desc; }
 }

@@ -1,5 +1,8 @@
 package com.ca2.ADT;
 
+import com.ca2.ShowGoodsController;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -124,4 +127,19 @@ public class RecipesManager {
 
         }
     }
+
+    public void addToGrid(GridPane grid, ShowGoodsController controller) {
+        HashTable<String, BakedGood>.Iterator<String, BakedGood> iter = this.bakedGoodsTable.begin();
+
+        GridPosition position = new GridPosition(0, 0, 3);
+        while(!iter.equals(this.bakedGoodsTable.end())) {
+
+            VBox box = iter.value().createTile(controller);
+            grid.add(box, position.getColumn(), position.getRow());
+
+            iter.next();
+            position.next();
+        }
+    }
+
 }

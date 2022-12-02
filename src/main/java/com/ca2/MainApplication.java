@@ -19,10 +19,9 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main2.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
         this.controller = fxmlLoader.getController();
-
 
         this.controller.setStage(stage);
 
@@ -53,13 +52,6 @@ public class MainApplication extends Application {
         //System.out.println(table.get(3));
         //table.remove(3);
         //System.out.println(table.get(3));
-
-        URL path = MainApplication.class.getResource("Data.xml");
-
-        RecipesManager recipes = new RecipesManager();
-        assert path != null;
-        DataManager.load(path.getPath(), recipes);
-        System.out.println("Hello");
 
         launch();
     }
