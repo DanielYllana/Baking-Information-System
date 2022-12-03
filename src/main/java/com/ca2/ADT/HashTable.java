@@ -149,6 +149,10 @@ public class HashTable <C, V> {
     }
 
 
+    public int numElems() {
+        return this._numElems;
+    }
+
 
     private class HashNode<C, V> {
         C _key;

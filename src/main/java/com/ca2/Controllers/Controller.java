@@ -64,6 +64,9 @@ public class Controller  implements Initializable {
     private VBox addIngredientViewer;
     private AddIngredientController addIngredientViewerController;
 
+    private VBox addRecipeViewer;
+    private AddRecipeController addRecipeViewerController;
+
     public Controller() {
         URL path = MainApplication.class.getResource("Data.xml");
 
@@ -100,6 +103,13 @@ public class Controller  implements Initializable {
             this.addIngredientViewerController = fxmlLoader.getController();
             this.addIngredientViewerController.setParentController(this);
 
+            fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(MainApplication.class.getResource("add-recipes.fxml"));
+            this.addRecipeViewer = fxmlLoader.load();
+            this.addRecipeViewerController = fxmlLoader.getController();
+            this.addRecipeViewerController.setParentController(this);
+            this.addRecipeViewerController.setCellFactories();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -132,7 +142,13 @@ public class Controller  implements Initializable {
 
     @FXML
     void addRecipe(MouseEvent event) {
-        //this.selectedMenu(addRecipe);
+        this.selectedMenu(addRecipe);
+        this.addRecipeViewerController.reset();
+        this.addRecipeViewerController.updateRecipesManager(this.recipes);
+        this.addRecipeViewerController.initController();
+
+        this.mainPane.getChildren().removeAll(this.mainPane.getChildren());
+        this.mainPane.getChildren().add(this.addRecipeViewer);
     }
 
     @FXML
@@ -292,7 +308,7 @@ public class Controller  implements Initializable {
     public void showBakedGoodView(BakedGood bg) {
         this.mainPane.getChildren().removeAll(this.mainPane.getChildren());
         this.mainPane.getChildren().add(this.bakedGoodViewer);
-        this.bakedGoodViewerController.setData(bg);
+        this.bakedGoodViewerController.setData(bg, recipes);
     }
 
     public void setRecipes(RecipesManager recipes) {

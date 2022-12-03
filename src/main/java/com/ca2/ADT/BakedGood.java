@@ -120,4 +120,10 @@ public class BakedGood implements Comparable<BakedGood>{
     public String getOrigin() { return this.origin; }
 
     public String getDesc() { return this.desc; }
+
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

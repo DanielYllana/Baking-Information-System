@@ -433,5 +433,11 @@
                 </Ingredient>
             </IngredientsList>
         </BakedGood>
+        <BakedGood>
+            <Name>Test Pie</Name>
+            <Origin>US</Origin>
+            <Desc>some desc</Desc>
+            <url>\src\main\resources\com\ca2\images\pie.png</url>
+        </BakedGood>
     </BakedGoods>
 </Data>

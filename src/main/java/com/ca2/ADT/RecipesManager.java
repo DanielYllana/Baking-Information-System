@@ -1,6 +1,7 @@
 package com.ca2.ADT;
 
 import com.ca2.Controllers.ShowGoodsController;
+import javafx.collections.ObservableList;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
@@ -116,10 +117,16 @@ public class RecipesManager {
 
             NodeList ingredientList = ((Element) node).getElementsByTagName("Ingredient");
 
-            this.recipesTable.insert(
-                    good.getName(),
-                    this.loadIngredientListTable(ingredientList)
-            );
+            HashTable<String, Double> ingredientTable = this.loadIngredientListTable(ingredientList);
+
+            if (ingredientTable.numElems() > 0) {
+                this.recipesTable.insert(
+                        good.getName(),
+                        ingredientTable
+                );
+            } else {
+                System.out.println("No recipe provided for baked good: " + good.getName());
+            }
 
 
         }
@@ -164,5 +171,42 @@ public class RecipesManager {
 
     public void addIngredient(Ingredient ing) {
         this.ingredientTable.insert(ing.getName(), ing);
+    }
+
+    public void addGoodsToList(ObservableList<BakedGood> listBakedGood) {
+        HashTable<String, BakedGood>.Iterator<String, BakedGood> iter = this.bakedGoodsTable.begin();
+
+        while(!iter.equals(this.bakedGoodsTable.end())) {
+            listBakedGood.add(iter.value());
+            iter.next();
+        }
+    }
+
+    public void addIngredientsToList(ObservableList<Ingredient> listIngredients) {
+        HashTable<String, Ingredient>.Iterator<String, Ingredient> iter = this.ingredientTable.begin();
+
+        while(!iter.equals(this.ingredientTable.end())) {
+            listIngredients.add(iter.value());
+            iter.next();
+        }
+    }
+
+    public void addRecipe(BakedGood bg, HashTable<String, Double> ingredientTable) {
+        this.recipesTable.insert(bg.getName(), ingredientTable);
+    }
+
+    public void extractRecipe(ObservableList<String> listIngredients, BakedGood bg) {
+        if (!this.recipesTable.exists(bg.getName())) {
+            return;
+        }
+
+        HashTable<String, Double> ingredientTable = this.recipesTable.get(bg.getName());
+        HashTable<String, Double>.Iterator<String, Double> iter = ingredientTable.begin();
+
+        while(!iter.equals(ingredientTable.end())) {
+            listIngredients.add(iter.key() + ": " + iter.value());
+            iter.next();
+        }
+
     }
 }

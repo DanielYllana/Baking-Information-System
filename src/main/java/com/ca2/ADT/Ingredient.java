@@ -120,4 +120,10 @@ public class Ingredient  implements Comparable <Ingredient>{
         }
         return null;
     }
+
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }
