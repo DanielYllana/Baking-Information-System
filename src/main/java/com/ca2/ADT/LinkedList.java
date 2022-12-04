@@ -229,8 +229,7 @@ public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> 
                 previous= actual;
                 actual= actual.next;
         }
-        if (totalelem==0 || !sorted)
-        {
+        if (this.empty() || !sorted) {
             this.push(elem);
             System.out.println("not empty anymore");
         }
@@ -240,7 +239,7 @@ public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> 
     {
         T elem = null;
         Node<T> a = (Node<T>)first;
-        for (int n =0; n<i; i++)
+        for (int n =0; n<i; n++)
         {
             a=a.next;
         }
