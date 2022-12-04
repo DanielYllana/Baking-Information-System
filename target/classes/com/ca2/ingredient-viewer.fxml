@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="740.0" styleClass="body-background" stylesheets="@main-stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ca2.Controllers.IngredientController">
+    <children>
+        <HBox prefHeight="400.0" prefWidth="734.0" spacing="30.0" styleClass="transparent" stylesheets="@main-stylesheet.css" VBox.vgrow="ALWAYS">
+            <children>
+                <ImageView fx:id="image" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/home.png" />
+                    </image>
+                </ImageView>
+                <VBox prefHeight="400.0" prefWidth="400.0" spacing="15.0" styleClass="body-background" stylesheets="@main-stylesheet.css">
+                    <children>
+                        <Label fx:id="name" text="Name">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="desc" text="Description" />
+                        <Label fx:id="calories" text="Calories" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER">
+            <children>
+                <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#deleteIngredient" stylesheets="@main-stylesheet.css" text="Delete" textAlignment="CENTER">
+                    <styleClass>
+                        <String fx:value="delete-over" />
+                        <String fx:value="buttonDelete" />
+                    </styleClass>
+                </Button>
+                <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#editIngredient" stylesheets="@main-stylesheet.css" text="Edit" textAlignment="CENTER">
+                    <styleClass>
+                        <String fx:value="delete-over" />
+                        <String fx:value="buttonDelete" />
+                    </styleClass>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
+    <padding>
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+    </padding>
+</VBox>
