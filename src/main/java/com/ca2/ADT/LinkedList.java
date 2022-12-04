@@ -67,7 +67,21 @@ public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> 
     }
 
     public void Copia(LinkedList<T> other) {
-
+        if (other.empty()) {
+            first = last = null;
+            totalelem = 0;
+        } else {
+            Node  act = other.first; // recorre la cola original
+            Node  ant = new Node<T>((T) act.element, null); // último nodo copiado
+            first = ant;
+            while (act.next != null) {
+                act = act.next;
+                ant.next = new Node(act.element,null);
+                ant = ant.next;
+            }
+            last = ant;
+            totalelem = other.totalelem;
+        }
     }
 
     public <T extends Comparable<T>>  void  push(T ele) {
@@ -265,5 +279,20 @@ public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> 
 
         }
         return null;
+    }
+    public <T extends Comparable<T>> LinkedList<T> BinarySearchAll (T elem)
+    {
+        LinkedList<T> results = new LinkedList<T>();
+        LinkedList<T> tosearch=new LinkedList<T>( );
+        tosearch.Copia((LinkedList<T>) this);
+        T found = tosearch.BinarySearch(elem);
+        while (found!=null)
+        {
+            tosearch.RemoveItem(found);
+            results.push(found);
+            found = tosearch.BinarySearch(elem);
+        }
+        return results;
+
     }
 }
