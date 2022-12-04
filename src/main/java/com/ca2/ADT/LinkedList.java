@@ -70,7 +70,7 @@ public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> 
 
     }
 
-    public void push(T ele) {
+    public <T extends Comparable<T>>  void  push(T ele) {
         Node novo = new Node(ele, null);
         if (last != null)//just in case the list is empty
         {
@@ -204,9 +204,10 @@ public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> 
         boolean sorted = false;
         Node<T> actual =  (Node<T> ) first;
         Node<T> previous = null;
-        while ( i < totalelem && !sorted )
+
+        while ( i < totalelem && !sorted && actual!=null)
         {
-            if(actual.element.compareTo(elem)>0)
+            if(actual.element.compareTo(elem)>=0)
             {
                 //insert
                 Node<T> novo = new Node<T> (elem , null);
@@ -228,6 +229,11 @@ public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> 
                 previous= actual;
                 actual= actual.next;
         }
+        if (totalelem==0 || !sorted)
+        {
+            this.push(elem);
+            System.out.println("not empty anymore");
+        }
 
     }
     public <T extends Comparable<T>> T Get (int i)
@@ -242,13 +248,13 @@ public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> 
     }
     public <T extends Comparable<T>>T BinarySearch (T elem)
     {
-        boolean found = false;
+
         int mid = totalelem/2;
         int hihg = totalelem-1;
         int low = 0;
         T element = (T) elem;
         T actual;
-        while (!found&&low<=hihg)
+        while (low<=hihg)
         {   mid = (low + hihg)/2;
             actual = Get(mid);
             if (actual.compareTo((element))==0)
