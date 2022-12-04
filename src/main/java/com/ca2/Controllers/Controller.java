@@ -1,6 +1,7 @@
 package com.ca2.Controllers;
 
 import com.ca2.ADT.BakedGood;
+import com.ca2.ADT.Ingredient;
 import com.ca2.ADT.RecipesManager;
 import com.ca2.DataManager;
 import com.ca2.MainApplication;
@@ -67,6 +68,9 @@ public class Controller  implements Initializable {
     private VBox addRecipeViewer;
     private AddRecipeController addRecipeViewerController;
 
+    private VBox ingredientViewer;
+    private IngredientController ingredientViewerController;
+
     public Controller() {
         URL path = MainApplication.class.getResource("Data.xml");
 
@@ -110,10 +114,16 @@ public class Controller  implements Initializable {
             this.addRecipeViewerController.setParentController(this);
             this.addRecipeViewerController.setCellFactories();
 
+
+            fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(MainApplication.class.getResource("ingredient-viewer.fxml"));
+            this.ingredientViewer = fxmlLoader.load();
+            this.ingredientViewerController = fxmlLoader.getController();
+            this.ingredientViewerController.setParentController(this);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        System.out.println("constructor");
     }
 
 
@@ -122,9 +132,27 @@ public class Controller  implements Initializable {
     }
 
 
+    public void ediBakedGood(BakedGood bg) {
+        this.addGoodViewerController.updateRecipesManager(this.recipes);
+        this.addGoodViewerController.editGood(bg);
+
+        this.mainPane.getChildren().removeAll(this.mainPane.getChildren());
+        this.mainPane.getChildren().add(this.addGoodViewer);
+    }
+
+
+    public void editIngredient(Ingredient ing) {
+        this.addIngredientViewerController.updateRecipesManager(this.recipes);
+        this.addIngredientViewerController.editIngredient(ing);
+
+        this.mainPane.getChildren().removeAll(this.mainPane.getChildren());
+        this.mainPane.getChildren().add(this.addIngredientViewer);
+    }
+
     @FXML
     void addBakedGood(MouseEvent event) {
         this.selectedMenu(addBakedGood);
+        this.addGoodViewerController.reset();
         this.addGoodViewerController.updateRecipesManager(this.recipes);
 
         this.mainPane.getChildren().removeAll(this.mainPane.getChildren());
@@ -134,6 +162,7 @@ public class Controller  implements Initializable {
     @FXML
     void addIngredient(MouseEvent event) {
         this.selectedMenu(addIngredient);
+        this.addIngredientViewerController.reset();
         this.addIngredientViewerController.updateRecipesManager(this.recipes);
 
         this.mainPane.getChildren().removeAll(this.mainPane.getChildren());
@@ -318,5 +347,15 @@ public class Controller  implements Initializable {
     public void delete(BakedGood good) {
         this.recipes.delete(good);
     }
+
+    public void delete(Ingredient ing) { this.recipes.delete(ing); }
+
+    public void showIngredientView(Ingredient ing) {
+        this.mainPane.getChildren().removeAll(this.mainPane.getChildren());
+        this.mainPane.getChildren().add(this.ingredientViewer);
+        this.ingredientViewerController.setData(ing, recipes);
+    }
+
+
 
 }

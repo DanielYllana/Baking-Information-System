@@ -2,6 +2,7 @@ package com.ca2.Controllers;
 
 
 import com.ca2.ADT.BakedGood;
+import com.ca2.ADT.Ingredient;
 import com.ca2.ADT.RecipesManager;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
@@ -42,5 +43,10 @@ public class ShowGoodsController {
     public void showIngredients() {
         this.goodsGrid.getChildren().removeAll(this.goodsGrid.getChildren());
         recipes.addIngredientsToGrid(this.goodsGrid, this);
+    }
+
+    public void showIngredient(Ingredient ing) {
+        this.goodsGrid.getChildren().removeAll(this.goodsGrid.getChildren());
+        this.parentController.showIngredientView(ing);
     }
 }

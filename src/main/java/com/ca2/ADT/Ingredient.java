@@ -126,4 +126,8 @@ public class Ingredient  implements Comparable <Ingredient>{
     public String toString() {
         return this.name;
     }
+
+    public String getImageURL() {
+        return this.url;
+    }
 }

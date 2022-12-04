@@ -23,8 +23,15 @@ public class AddGoodController {
 
     private RecipesManager recipes;
 
+    private boolean edit = false;
+    private BakedGood bg;
+
     @FXML
     void saveStock(MouseEvent event) {
+        if (this.edit) {
+            this.parentController.delete(bg);
+        }
+
         String name = this.name.getText();
         String origin = this.origin.getText();
         String desc = this.desc.getText();
@@ -32,7 +39,14 @@ public class AddGoodController {
         BakedGood bg = new BakedGood(name, origin, desc, this.url);
 
         this.recipes.addBakedGood(bg);
-        this.parentController.homeView();
+
+        if (this.edit) {
+            this.parentController.showBakedGoodView(bg);
+        } else {
+            this.parentController.homeView();
+        }
+
+        this.edit = false;
     }
 
     @FXML
@@ -48,5 +62,22 @@ public class AddGoodController {
 
     public void setParentController(Controller controller) {
         this.parentController = controller;
+    }
+
+    public void editGood(BakedGood _bg) {
+        this.bg = _bg;
+        this.name.setText(bg.getName());
+        this.desc.setText(bg.getDesc());
+        this.origin.setText(bg.getOrigin());
+        this.url = bg.getImageURL();
+
+        this.edit = true;
+    }
+
+
+    public void reset() {
+        this.name.setText(null);
+        this.desc.setText(null);
+        this.origin.setText(null);
     }
 }

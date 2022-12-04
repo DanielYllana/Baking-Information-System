@@ -34,12 +34,22 @@
                 </VBox>
             </children>
         </HBox>
-        <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#deleteBakedGood" stylesheets="@main-stylesheet.css" text="Delete" textAlignment="CENTER">
-            <styleClass>
-                <String fx:value="delete-over" />
-                <String fx:value="buttonDelete" />
-            </styleClass>
-        </Button>
+      <HBox alignment="CENTER">
+         <children>
+              <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#deleteBakedGood" stylesheets="@main-stylesheet.css" text="Delete" textAlignment="CENTER">
+                  <styleClass>
+                      <String fx:value="delete-over" />
+                      <String fx:value="buttonDelete" />
+                  </styleClass>
+              </Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#editBakedGood" stylesheets="@main-stylesheet.css" text="Edit" textAlignment="CENTER">
+               <styleClass>
+                  <String fx:value="delete-over" />
+                  <String fx:value="buttonDelete" />
+               </styleClass>
+            </Button>
+         </children>
+      </HBox>
     </children>
     <opaqueInsets>
         <Insets />

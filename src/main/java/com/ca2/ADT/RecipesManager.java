@@ -165,6 +165,21 @@ public class RecipesManager {
         this.recipesTable.remove(good.getName());
     }
 
+
+    public void delete(Ingredient ing) {
+        this.ingredientTable.remove(ing.getName());
+
+        HashTable<String, HashTable<String, Double>>
+                .Iterator<String, HashTable<String, Double>> iter = this.recipesTable.begin();
+
+        while(!iter.equals(this.recipesTable.end())) {
+            if (iter.value().exists(ing.getName())) {
+                iter.value().remove(ing.getName());
+            }
+            iter.next();
+        }
+    }
+
     public void addBakedGood(BakedGood bg) {
         this.bakedGoodsTable.insert(bg.getName(), bg);
     }
@@ -209,4 +224,6 @@ public class RecipesManager {
         }
 
     }
+
+
 }

@@ -41,7 +41,6 @@ public class TileController {
         label3.setText(bg.getDesc());
 
         this.controller = controller;
-        this.tileType = 0;
     }
 
     public void setData(Ingredient _ing, ShowGoodsController controller) {
@@ -52,11 +51,16 @@ public class TileController {
         label1.setText(ing.getName());
         label2.setText(ing.getDesc());
         label3.setText(String.valueOf(ing.getCals()));
+
+        this.controller = controller;
     }
 
     @FXML
     void tileClicked(MouseEvent event) {
-
-        this.controller.showGood(this.bg);
+        if (this.tileType == 1) {
+            this.controller.showGood(this.bg);
+        } else if (this.tileType == 2) {
+            this.controller.showIngredient(this.ing);
+        }
     }
 }

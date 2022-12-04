@@ -126,4 +126,8 @@ public class BakedGood implements Comparable<BakedGood>{
     public String toString() {
         return this.name;
     }
+
+    public String getImageURL() {
+        return this.url;
+    }
 }

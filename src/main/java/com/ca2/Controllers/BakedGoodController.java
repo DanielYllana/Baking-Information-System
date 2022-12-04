@@ -1,6 +1,7 @@
 package com.ca2.Controllers;
 
 import com.ca2.ADT.BakedGood;
+import com.ca2.ADT.Ingredient;
 import com.ca2.ADT.RecipesManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,6 +51,7 @@ public class BakedGoodController {
     }
 
 
+
     public void setParentController(Controller controller) {
         this.parentController = controller;
     }
@@ -60,6 +62,15 @@ public class BakedGoodController {
         this.parentController.delete(this.good);
         this.parentController.homeView();
     }
+
+
+
+    @FXML
+    void editBakedGood(MouseEvent event) {
+        this.parentController.ediBakedGood(good);
+    }
+
+
 
     public static class IngredientListCellFactory implements Callback<ListView<String>, ListCell<String>> {
         @Override
