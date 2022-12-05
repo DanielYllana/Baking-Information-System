@@ -94,7 +94,7 @@ public class HashTable <C, V> {
 
         HashNode<C, V> node = this.searchNode(key, this._v.get(idx));
         if (node == null) {
-            System.out.println("Throw error, invalid key (not found)");
+            //System.out.println("Throw error, invalid key (not found)");
             return null;
         }
 
