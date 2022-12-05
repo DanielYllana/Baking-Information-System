@@ -3,6 +3,8 @@ package com.ca2.Controllers;
 import com.ca2.ADT.BakedGood;
 import com.ca2.ADT.Ingredient;
 import com.ca2.ADT.RecipesManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -48,8 +50,19 @@ public class BakedGoodController {
         ObservableList<String> listIngredients = FXCollections.observableArrayList();
         recipes.extractRecipe(listIngredients, _good);
         this.ingredientList.getItems().addAll(listIngredients);
+
     }
 
+    @FXML
+    void drillDown(MouseEvent event) {
+        String selection = this.ingredientList.getSelectionModel().getSelectedItem();
+
+        String name = selection.split(":")[0];
+        if (!name.isBlank() && !name.isEmpty()) {
+            parentController.showIngredientView(name);
+        }
+
+    }
 
 
     public void setParentController(Controller controller) {

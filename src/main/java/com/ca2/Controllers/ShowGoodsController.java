@@ -49,4 +49,14 @@ public class ShowGoodsController {
         this.goodsGrid.getChildren().removeAll(this.goodsGrid.getChildren());
         this.parentController.showIngredientView(ing);
     }
+
+    public void showIngredients(String param2, String query) {
+        this.goodsGrid.getChildren().removeAll(this.goodsGrid.getChildren());
+        recipes.addIngredientsToGrid(this.goodsGrid, this, param2, query);
+    }
+
+    public void showGoods(String param2, String query) {
+        this.goodsGrid.getChildren().removeAll(this.goodsGrid.getChildren());
+        recipes.addGoodsToGrid(this.goodsGrid, this, param2, query);
+    }
 }

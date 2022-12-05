@@ -130,4 +130,15 @@ public class Ingredient  implements Comparable <Ingredient>{
     public String getImageURL() {
         return this.url;
     }
+
+    public boolean match(String query, String param2) {
+        query = query.toLowerCase();
+
+        if (param2.equals("Name")) {
+            return this.name.toLowerCase().contains(query);
+        } else if(param2.equals("Description")) {
+            return this.desc.toLowerCase().contains(query);
+        }
+        return false;
+    }
 }

@@ -22,11 +22,18 @@ public class RecipesManager {
     HashTable<String, HashTable<String, Double>> recipesTable;
 
 
+    LinkedList<BakedGood> bakedGoodsList;
+    LinkedList<Ingredient> ingredientList;
+
+
     public RecipesManager() {
         this.bakedGoodsTable = new HashTable<String, BakedGood>();
         this.ingredientTable = new HashTable<String, Ingredient>();
 
         this.recipesTable = new HashTable<String, HashTable<String, Double>>();
+
+        this.bakedGoodsList = new LinkedList<>();
+        this.ingredientList = new LinkedList<>();
     }
 
 
@@ -35,6 +42,9 @@ public class RecipesManager {
         this.ingredientTable = new HashTable<String, Ingredient>();
 
         this.recipesTable = new HashTable<String, HashTable<String, Double>>();
+
+        this.bakedGoodsList = new LinkedList<>();
+        this.ingredientList = new LinkedList<>();
     }
 
 
@@ -57,6 +67,7 @@ public class RecipesManager {
 
             Ingredient ing = new Ingredient(node);
             this.ingredientTable.insert(ing.getName(), ing);
+            this.ingredientList.Sortedinsert(ing);
         }
     }
 
@@ -64,12 +75,11 @@ public class RecipesManager {
     public Element saveIngredients(Document doc) {
         Element root = doc.createElement("Ingredients");
 
-        HashTable<String, Ingredient>.Iterator<String, Ingredient> iter =
-                this.ingredientTable.begin();
 
-        while(!iter.equals(this.ingredientTable.end())) {
-            root.appendChild(iter.value().save(doc));
+        for (Ingredient ing: this.ingredientList) {
+            root.appendChild(ing.save(doc));
         }
+
         return root;
     }
 
@@ -77,12 +87,10 @@ public class RecipesManager {
     public Element saveBakedGoods(Document doc) {
         Element root = doc.createElement("BakedGoods");
 
-        HashTable<String, BakedGood>.Iterator<String, BakedGood> iter =
-                this.bakedGoodsTable.begin();
-
-        while(!iter.equals(this.bakedGoodsTable.end())) {
-            root.appendChild(iter.value().save(doc));
+        for (BakedGood bg: this.bakedGoodsList) {
+            root.appendChild(bg.save(doc));
         }
+
         return root;
     }
 
@@ -115,6 +123,8 @@ public class RecipesManager {
             BakedGood good = new BakedGood(node);
             this.bakedGoodsTable.insert(good.getName(), good);
 
+            this.bakedGoodsList.Sortedinsert(good);
+
             NodeList ingredientList = ((Element) node).getElementsByTagName("Ingredient");
 
             HashTable<String, Double> ingredientTable = this.loadIngredientListTable(ingredientList);
@@ -133,29 +143,22 @@ public class RecipesManager {
     }
 
     public void addIngredientsToGrid(GridPane grid, ShowGoodsController controller) {
-        HashTable<String, Ingredient>.Iterator<String, Ingredient> iter = this.ingredientTable.begin();
-
         GridPosition position = new GridPosition(0, 0, 3);
-        while(!iter.equals(this.ingredientTable.end())) {
 
-            VBox box = iter.value().createTile(controller);
+        for (Ingredient ing: this.ingredientList) {
+            VBox box = ing.createTile(controller);
             grid.add(box, position.getColumn(), position.getRow());
-
-            iter.next();
             position.next();
         }
     }
 
     public void addGoodsToGrid(GridPane grid, ShowGoodsController controller) {
-        HashTable<String, BakedGood>.Iterator<String, BakedGood> iter = this.bakedGoodsTable.begin();
-
         GridPosition position = new GridPosition(0, 0, 3);
-        while(!iter.equals(this.bakedGoodsTable.end())) {
 
-            VBox box = iter.value().createTile(controller);
+        for (BakedGood bg: this.bakedGoodsList) {
+            VBox box = bg.createTile(controller);
             grid.add(box, position.getColumn(), position.getRow());
 
-            iter.next();
             position.next();
         }
     }
@@ -163,11 +166,14 @@ public class RecipesManager {
     public void delete(BakedGood good) {
         this.bakedGoodsTable.remove(good.getName());
         this.recipesTable.remove(good.getName());
+
+        this.bakedGoodsList.RemoveItem(good);
     }
 
 
     public void delete(Ingredient ing) {
         this.ingredientTable.remove(ing.getName());
+        this.ingredientList.RemoveItem(ing);
 
         HashTable<String, HashTable<String, Double>>
                 .Iterator<String, HashTable<String, Double>> iter = this.recipesTable.begin();
@@ -181,19 +187,18 @@ public class RecipesManager {
     }
 
     public void addBakedGood(BakedGood bg) {
+        this.bakedGoodsList.Sortedinsert(bg);
         this.bakedGoodsTable.insert(bg.getName(), bg);
     }
 
     public void addIngredient(Ingredient ing) {
+        this.ingredientList.Sortedinsert(ing);
         this.ingredientTable.insert(ing.getName(), ing);
     }
 
     public void addGoodsToList(ObservableList<BakedGood> listBakedGood) {
-        HashTable<String, BakedGood>.Iterator<String, BakedGood> iter = this.bakedGoodsTable.begin();
-
-        while(!iter.equals(this.bakedGoodsTable.end())) {
-            listBakedGood.add(iter.value());
-            iter.next();
+        for (BakedGood bg: this.bakedGoodsList) {
+            listBakedGood.add(bg);
         }
     }
 
@@ -226,4 +231,29 @@ public class RecipesManager {
     }
 
 
+    public void addIngredientsToGrid(GridPane goodsGrid, ShowGoodsController controller, String param2, String query) {
+        GridPosition position = new GridPosition(0, 0, 3);
+
+        for(Ingredient ing: this.ingredientList) {
+            if (ing.match(query, param2)) {
+                goodsGrid.add(ing.createTile(controller), position.getColumn(), position.getRow());
+                position.next();
+            }
+        }
+    }
+
+    public void addGoodsToGrid(GridPane goodsGrid, ShowGoodsController controller, String param2, String query) {
+        GridPosition position = new GridPosition(0, 0, 3);
+
+        for(BakedGood bg: this.bakedGoodsList) {
+            if (bg.match(query, param2)) {
+                goodsGrid.add(bg.createTile(controller), position.getColumn(), position.getRow());
+                position.next();
+            }
+        }
+    }
+
+    public Ingredient getIngredient(String t1) {
+        return this.ingredientTable.get(t1);
+    }
 }

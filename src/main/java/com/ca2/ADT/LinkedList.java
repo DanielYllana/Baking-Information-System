@@ -245,7 +245,6 @@ public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> 
         }
         if (this.empty() || !sorted) {
             this.push(elem);
-            System.out.println("not empty anymore");
         }
 
     }

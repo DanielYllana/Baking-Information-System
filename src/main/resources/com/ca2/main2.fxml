@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -42,6 +43,13 @@
                         </ImageView>
                     </children>
                 </HBox>
+            <Pane prefHeight="75.0" prefWidth="63.0" />
+            <ComboBox fx:id="comboBoxParam1" onAction="#changeParam1" prefHeight="25.0" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </ComboBox>
+            <ComboBox fx:id="comboBoxParam2" prefHeight="25.0" prefWidth="100.0" />
             </children>
             <padding>
                 <Insets left="30.0" right="30.0" />

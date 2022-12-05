@@ -5,9 +5,11 @@ import com.ca2.ADT.Ingredient;
 import com.ca2.ADT.RecipesManager;
 import com.ca2.DataManager;
 import com.ca2.MainApplication;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -45,6 +47,12 @@ public class Controller  implements Initializable {
     @FXML
     private HBox showIngredients;
 
+    @FXML
+    private ComboBox<String> comboBoxParam1;
+
+    @FXML
+    private ComboBox<String> comboBoxParam2;
+
 
 
     RecipesManager recipes;
@@ -77,7 +85,7 @@ public class Controller  implements Initializable {
         this.recipes = new RecipesManager();
         assert path != null;
         DataManager.load(path.getPath(), recipes);
-        System.out.println("Hello");
+
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -124,6 +132,20 @@ public class Controller  implements Initializable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+
+
+    @FXML
+    void changeParam1(ActionEvent event) {
+        this.comboBoxParam2.getItems().removeAll(this.comboBoxParam2.getItems());
+
+        if (this.comboBoxParam1.getValue().equals("Baked Good")) {
+            this.comboBoxParam2.getItems().addAll("Name", "Origin");
+        } else if (this.comboBoxParam1.getValue().equals("Ingredient")) {
+            this.comboBoxParam2.getItems().addAll("Name", "Description");
+        }
+        this.comboBoxParam2.getSelectionModel().selectFirst();
     }
 
 
@@ -264,6 +286,25 @@ public class Controller  implements Initializable {
 
     @FXML
     void search(MouseEvent event) {
+        String param1 = this.comboBoxParam1.getValue();
+        String param2 = this.comboBoxParam2.getValue();
+        String query = this.searchText.getText();
+
+        if (query.isBlank()) {
+            return ;
+        }
+
+        this.selectedMenu(null);
+        this.mainPane.getChildren().removeAll(this.mainPane.getChildren());
+        this.mainPane.getChildren().add(this.goodsViewer);
+
+        if (param1.equals("Ingredient")) {
+            this.showGoodsController.reloadRecipes(this.recipes);
+            this.showGoodsController.showIngredients(param2, query);
+        } else if (param1.equals("Baked Good")) {
+            this.showGoodsController.reloadRecipes(this.recipes);
+            this.showGoodsController.showGoods(param2, query);
+        }
 
     }
 
@@ -285,6 +326,10 @@ public class Controller  implements Initializable {
         System.out.println("init");
         this.showGoods(null);
         this.homeView();
+
+        this.comboBoxParam1.getItems().addAll("Baked Good", "Ingredient");
+        this.comboBoxParam1.getSelectionModel().selectFirst();
+        this.changeParam1(null);
     }
 
 
@@ -357,5 +402,7 @@ public class Controller  implements Initializable {
     }
 
 
-
+    public void showIngredientView(String t1) {
+        this.showIngredientView(this.recipes.getIngredient(t1));
+    }
 }
