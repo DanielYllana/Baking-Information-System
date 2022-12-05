@@ -17,7 +17,7 @@ public class ShowGoodsController {
 
     public void showGoods() {
         this.goodsGrid.getChildren().removeAll(this.goodsGrid.getChildren());
-        recipes.addGoodsToGrid(this.goodsGrid, this);
+        recipes.addGoodsToGrid(this.goodsGrid, this,1);
     }
 
     /*

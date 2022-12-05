@@ -24,7 +24,7 @@ public class BakedGood implements Comparable<BakedGood>{
     private String relativeURL;
     private String url;
     private Image image;
-
+    int totalCals=0;
 
     public BakedGood(String _name, String _origin, String _desc, String path) {
         this.name = _name;
@@ -141,4 +141,8 @@ public class BakedGood implements Comparable<BakedGood>{
         }
         return false;
     }
+    public int GetCals()
+    {return  totalCals;}
+    public void SetCals(int c)
+    {totalCals=c;}
 }

@@ -1,9 +1,10 @@
 package com.ca2.ADT;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Iterator;
 
-public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> {
+public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T>  {
 
 
 
@@ -16,6 +17,8 @@ public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> 
     public int compareTo(T o) {
         return 0;
     }
+
+
 
     protected class Iterador<T> implements Iterator<T> {
         private Node current;
@@ -190,23 +193,35 @@ public class LinkedList<T> implements Iterable<T> , Serializable, Comparable<T> 
     {
         Node previos = first;
         boolean found = false;
+        Node aux= first;
         if(previos.element==elem)//special case the jewel you remove is the first in the list
         {
             first= previos.next;//now javas trash collector should delete elem since nothing references it
             elem=null;
+            totalelem--;
         }
         else {
             while (previos.next != null && !found) {
 
                 if (previos.next.element == elem)
                 {   found = true;}
-                else
-                previos = previos.next;
+                else {
+                    aux = previos;
+                    previos = previos.next;
+                }
             }
 
-
-                previos.next = previos.next.next; //now javas trash collector should delete elem since nothing references it
-                elem = null;
+                if (previos.next==null) //borro el ultimo
+                {
+                    last = aux;
+                    aux.next= null;
+                }
+                else
+                {
+                    previos.next = previos.next.next; //now javas trash collector should delete elem since nothing references it
+                    elem = null;
+                }
+                totalelem--;
 
 
         }
