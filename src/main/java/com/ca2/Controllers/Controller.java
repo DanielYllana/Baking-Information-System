@@ -93,6 +93,7 @@ public class Controller  implements Initializable {
             this.goodsViewer = fxmlLoader.load();
             this.showGoodsController = fxmlLoader.getController();
             this.showGoodsController.setParentController(this);
+            this.showGoodsController.initToggleGroup();
 
 
             fxmlLoader = new FXMLLoader();

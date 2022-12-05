@@ -9,8 +9,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.util.Comparator;
-
 public class  RecipesManager<T>  {
     T value ;
     // Quick lookup for baked good name to object
@@ -155,6 +153,11 @@ public class  RecipesManager<T>  {
     }
 
     public void addGoodsToGrid(GridPane grid, ShowGoodsController controller, int search ) {
+
+        if (search != 0 && search != 1) { // default search is alphabetical
+            search = 0;
+        }
+
         GridPosition position = new GridPosition(0, 0, 3);
         if(search==1)   // 1 calorias , 0 alfabetico
         {
@@ -163,33 +166,30 @@ public class  RecipesManager<T>  {
 
                 HashTable<String, Double> ings = recipesTable.get(bg.getName());
                 int totalc = 0;
-                    if (ings !=null)//test ie da null
-                    {
-                        HashTable.Iterator i = ings.begin();
+                if (ings != null) {
+                    HashTable<String, Double>.Iterator<String, Double> iter = ings.begin();
 
-                        Ingredient actual = ingredientTable.get((String) i.key());
-                        while (i.value() != null) {
-
-                            totalc += (actual.getCals() * (Double) i.value());
-                            i.next();
-                        }
-
-                        bg.SetCals(totalc);
+                    while (!iter.equals(ings.end())) {
+                        Ingredient ing = this.ingredientTable.get(iter.key());
+                        totalc += ((ing.getCals()) / 100.0 * iter.value());
+                        iter.next();
                     }
+
+                    bg.SetCals(totalc);
+                }
             }
-           sortBakedGoodsCals();
-            for (BakedGood bg : this.bakedGoodsList)
-            {
+
+            LinkedList<BakedGood> caloriesSorted = sortBakedGoodsCals();
+
+            for (BakedGood bg : caloriesSorted) {
                 VBox box = bg.createTile(controller);
                 grid.add(box, position.getColumn(), position.getRow());
 
                 position.next();
             }
-            sortBakedGoodsName();//internamente tienen que seguir ordenadas por nombre pra la busqueda binaria
+
         }
-        else
-        {   //sortBakedGoodsName();
-            if (search==0)
+        else if (search==0) {
             for (BakedGood bg : this.bakedGoodsList)
             {
                 VBox box = bg.createTile(controller);
@@ -293,17 +293,19 @@ public class  RecipesManager<T>  {
     public Ingredient getIngredient(String t1) {
         return this.ingredientTable.get(t1);
     }
-    public void  sortBakedGoodsCals()
+    public LinkedList<BakedGood> sortBakedGoodsCals()
     {
         LinkedList<BakedGood> aux = new LinkedList<>();
         aux.Copia(bakedGoodsList);
-        BakedGood mingood=aux.first.element;
-        BakedGood actualgood= aux.first.element;
+
         LinkedList<BakedGood> result = new LinkedList<BakedGood>();
+
         while (result.totalelem != bakedGoodsList.totalelem)
         {
+            BakedGood mingood = aux.first.element;
+            BakedGood actualgood = aux.first.element;
 
-            for ( int rec = 0; rec< aux.totalelem ; rec++)
+            for ( int rec = 0; rec < aux.totalelem ; rec++)
             {
                 if (actualgood.GetCals() <= mingood.GetCals())
                 {
@@ -316,17 +318,9 @@ public class  RecipesManager<T>  {
             result.push(mingood);
             aux.RemoveItem(mingood);
         }
-        bakedGoodsList.Copia(result);
+        return result;
+    }
 
-    }
-    public  void sortBakedGoodsName()
-    {
-        LinkedList<BakedGood> result = new LinkedList<BakedGood>();
-        for (BakedGood bg : bakedGoodsList)
-        {
-            result.Sortedinsert(bg);
-        }
-        bakedGoodsList.Copia(result);
-    }
+
 
 }
